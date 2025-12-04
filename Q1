@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <string.h>
+
+int isvowel(char c) {
+    return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+            c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
+}
+
+void reversevowels(char* s, int ssize) {
+    int left = 0;
+    int right = ssize - 1;
+
+    while (left < right) {
+        while (left < right && !isvowel(s[left])) {
+            left++;
+        }
+
+        while (left < right && !isvowel(s[right])) {
+            right--;
+        }
+
+        if (left < right) {
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+}
+
+void printstring(char* s, int ssize) {
+    printf("\"");
+    for (int i = 0; i < ssize; i++) {
+        printf("%c", s[i]);
+    }
+    printf("\"\n");
+}
+
+int main() {
+    char s1[] = {'I', 'c', 'e', 'C', 'r', 'e', 'A', 'm'};
+    int size1 = sizeof(s1) / sizeof(s1[0]);
+    
+    printf("Example 1 Input: ");
+    printstring(s1, size1);
+    
+    reversevowels(s1, size1);
+    
+    printf("Example 1 Output: ");
+    printstring(s1, size1); 
+
+    printf("--------------------\n");
+
+    char s2[] = {'l', 'e', 'o', 't', 'c', 'e', 'd', 'e'};
+    int size2 = sizeof(s2) / sizeof(s2[0]);
+    
+    printf("Example 2 Input: ");
+    printstring(s2, size2);
+    
+    reversevowels(s2, size2);
+    
+    printf("Example 2 Output: ");
+    printstring(s2, size2); 
+
+    return 0;
+}
