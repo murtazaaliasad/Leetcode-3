@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void rotatematrix(int matrix[][3], int n) {
+    int i, j, temp;
+
+    for (i = 0; i < n; i++) {
+        for (j = i; j < n; j++) {
+            temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+    }
+
+    for (i = 0; i < n; i++) {
+        int left = 0;
+        int right = n - 1;
+        
+        while (left < right) {
+            temp = matrix[i][left];
+            matrix[i][left] = matrix[i][right];
+            matrix[i][right] = temp;
+            
+            left++;
+            right--;
+        }
+    }
+}
+
+void print_matrix(int matrix[][3], int n) {
+    printf("[");
+    for (int i = 0; i < n; i++) {
+        printf("[");
+        for (int j = 0; j < n; j++) {
+            printf("%d", matrix[i][j]);
+            if (j < n - 1) printf(",");
+        }
+        printf("]");
+        if (i < n - 1) printf(",");
+    }
+    printf("]\n");
+}
+
+int main() {
+    int n1 = 3;
+    int m1[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    
+    printf("Input 1: ");
+    print_matrix(m1, n1);
+    
+    rotatematrix(m1, n1);
+    
+    printf("Output 1: ");
+    print_matrix(m1, n1); 
+
+    printf("----------\n");
+    
+    return 0;
+}
