@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int check_pal(const char* s, int l) {
+    if (l == 0) {
+        return 1;
+    }
+    
+    int i = 0;
+    int j = l - 1;
+
+    while (i < j) {
+        if (s[i] != s[j]) {
+            return 0;
+        }
+        i++;
+        j--;
+    }
+    return 1;
+}
+
+char* find_first(char** arr, int count) {
+    for (int k = 0; k < count; k++) {
+        char* current = arr[k];
+        int len = strlen(current);
+
+        if (check_pal(current, len)) {
+            return current;
+        }
+    }
+    
+    char* result = (char*)calloc(1, sizeof(char));
+    if (result == NULL) {
+        return ""; 
+    }
+    result[0] = '\0';
+    return result;
+}
+
+void print_output(char* res) {
+    if (res == NULL || res[0] == '\0') {
+        printf("\"\"\n");
+    } else {
+        printf("\"%s\"\n", res);
+    }
+}
+
+int main() {
+    char* words1[] = {"abc", "car", "ada", "racecar", "cool"};
+    int s1 = sizeof(words1) / sizeof(words1[0]);
+    printf("Input 1: [\"abc\", \"car\", \"ada\", \"racecar\", \"cool\"]\n");
+    char* r1 = find_first(words1, s1);
+    printf("Output 1: ");
+    print_output(r1);
+
+    printf("----------\n");
+
+    char* words2[] = {"notapalindrome", "racecar"};
+    int s2 = sizeof(words2) / sizeof(words2[0]);
+    printf("Input 2: [\"notapalindrome\", \"racecar\"]\n");
+    char* r2 = find_first(words2, s2);
+    printf("Output 2: ");
+    print_output(r2);
+
+    printf("----------\n");
+
+    char* words3[] = {"def", "ghi"};
+    int s3 = sizeof(words3) / sizeof(words3[0]);
+    printf("Input 3: [\"def\", \"ghi\"]\n");
+    char* r3 = find_first(words3, s3);
+    printf("Output 3: ");
+    print_output(r3);
+    
+    if (r3 != NULL && r3[0] == '\0') {
+         free(r3);
+    }
+    
+    return 0;
+}
